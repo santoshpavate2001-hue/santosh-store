@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santosh Store — Mobiles, Gadgets &amp; Accessories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101113;--panel:#16181b;--panel-2:#1d2024;--hairline:#2a2d31;
+    --bone:#ece8e0;--bone-dim:#a8a49b;
+    --champagne:#cba768;--champagne-dim:#8a7650;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--ink);color:var(--bone);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Sora',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--champagne);color:var(--ink);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(16,17,19,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .logo{font-family:'Sora';font-weight:700;font-size:16px;letter-spacing:2px;white-space:nowrap;}
+  .logo span{color:var(--champagne);}
+  .navlinks{display:flex;gap:36px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bone-dim);}
+  .navlinks a{transition:color .25s;} .navlinks a:hover{color:var(--champagne);}
+  .nav-cta{border:1px solid var(--champagne-dim);padding:9px 20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--champagne);transition:.3s;}
+  .nav-cta:hover{background:var(--champagne);color:var(--ink);}
+  @media(max-width:860px){.navlinks{display:none;}}
+
+  /* HERO */
+  header.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:72px;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(203,167,104,0.10),transparent 60%),var(--ink);overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;width:100%;}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--champagne);display:flex;align-items:center;gap:14px;margin-bottom:28px;}
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--champagne-dim);}
+  .hero h1{font-size:clamp(40px,5.5vw,72px);font-weight:600;line-height:1.04;letter-spacing:-1px;margin-bottom:24px;}
+  .hero h1 em{font-style:normal;color:var(--champagne);}
+  .hero p.lead{font-size:16px;color:var(--bone-dim);max-width:420px;line-height:1.8;margin-bottom:36px;}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{background:var(--champagne);color:var(--ink);padding:15px 30px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:.3s;border:none;cursor:pointer;}
+  .btn-primary:hover{background:var(--bone);transform:translateY(-2px);}
+  .btn-ghost{border:1px solid var(--hairline);padding:15px 30px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bone-dim);transition:.3s;cursor:pointer;}
+  .btn-ghost:hover{border-color:var(--champagne-dim);color:var(--bone);}
+  .hero-stats{display:flex;gap:44px;margin-top:52px;flex-wrap:wrap;}
+  .hero-stats div b{display:block;font-family:'Sora';font-size:24px;font-weight:600;color:var(--bone);}
+  .hero-stats div span{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bone-dim);}
+
+  /* device art */
+  .device-stage{position:relative;height:520px;display:flex;align-items:center;justify-content:center;}
+  .phone{position:relative;width:220px;height:450px;background:linear-gradient(155deg,#22252a,#15171a 60%);border-radius:34px;border:1px solid #34373c;box-shadow:0 40px 80px -20px rgba(0,0,0,0.7),inset 0 0 0 1px rgba(255,255,255,0.02);animation:float 6s ease-in-out infinite;}
+  .phone::before{content:'';position:absolute;top:16px;left:16px;right:16px;bottom:16px;border-radius:20px;background:linear-gradient(160deg,#1a1c20,#0d0e10);border:1px solid #2c2f34;}
+  .phone::after{content:'';position:absolute;top:30px;left:50%;transform:translateX(-50%);width:50px;height:5px;border-radius:4px;background:#0d0e10;}
+  .ring{position:absolute;border-radius:50%;border:1px solid var(--champagne-dim);opacity:.3;}
+  .ring.r1{width:360px;height:360px;animation:spin 40s linear infinite;}
+  .ring.r2{width:440px;height:440px;border-style:dashed;opacity:.14;animation:spin 70s linear infinite reverse;}
+  .bud{position:absolute;width:30px;height:40px;border-radius:12px 12px 16px 16px;background:linear-gradient(160deg,#2a2d32,#121315);border:1px solid #3a3d42;box-shadow:0 18px 30px -10px rgba(0,0,0,.6);}
+  .bud.b1{top:60px;left:20px;animation:float 7s ease-in-out infinite .5s;}
+  .bud.b2{bottom:80px;right:0;animation:float 8s ease-in-out infinite 1s;}
+  .watch{position:absolute;width:72px;height:84px;border-radius:18px;background:linear-gradient(160deg,#2a2d32,#121315);border:1px solid #3a3d42;bottom:30px;left:-10px;box-shadow:0 18px 30px -10px rgba(0,0,0,.6);animation:float 9s ease-in-out infinite .3s;}
+  .watch::after{content:'';position:absolute;inset:9px;border-radius:10px;background:#0c0d0f;border:1px solid #2c2f34;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  @keyframes spin{from{transform:rotate(0);}to{transform:rotate(360deg);}}
+  @media(prefers-reduced-motion:reduce){.phone,.bud,.watch,.ring{animation:none;}}
+  @media(max-width:900px){.device-stage{height:340px;} .ring.r1{width:240px;height:240px;} .ring.r2{width:300px;height:300px;} .phone{width:160px;height:320px;}}
+
+  /* SECTION */
+  section{padding:110px 0;}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;gap:24px;flex-wrap:wrap;}
+  .sec-head h2{font-size:clamp(28px,3.8vw,42px);font-weight:600;letter-spacing:-0.5px;}
+  .sec-head p{color:var(--bone-dim);max-width:320px;font-size:14px;line-height:1.7;}
+  .tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--champagne);margin-bottom:12px;display:block;}
+
+  /* CATEGORY TABS */
+  .cat-tabs{display:flex;gap:0;margin-bottom:48px;border:1px solid var(--hairline);width:fit-content;}
+  .cat-tab{padding:12px 24px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bone-dim);cursor:pointer;border-right:1px solid var(--hairline);transition:.25s;background:var(--panel);}
+  .cat-tab:last-child{border-right:none;}
+  .cat-tab:hover{color:var(--bone);}
+  .cat-tab.active{background:var(--champagne);color:var(--ink);font-weight:500;}
+
+  /* PRODUCTS GRID */
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  @media(max-width:900px){.prod-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:580px){.prod-grid{grid-template-columns:1fr;}}
+  .card{background:var(--panel);border:1px solid var(--hairline);transition:border-color .3s,transform .3s;}
+  .card:hover{border-color:var(--champagne-dim);transform:translateY(-6px);}
+  .card-art{height:200px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,rgba(203,167,104,0.08),transparent 65%);border-bottom:1px solid var(--hairline);position:relative;}
+  .card-body{padding:24px 26px 28px;}
+  .card .kicker{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--champagne-dim);margin-bottom:7px;}
+  .card h3{font-size:17px;font-weight:600;margin-bottom:6px;}
+  .card p.desc{font-size:13px;color:var(--bone-dim);line-height:1.6;margin-bottom:18px;}
+  .card .row{display:flex;justify-content:space-between;align-items:center;}
+  .price{font-family:'Sora';font-size:17px;font-weight:600;}
+  .pill{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--hairline);padding:7px 14px;color:var(--bone-dim);transition:.3s;}
+  .card:hover .pill{border-color:var(--champagne);color:var(--champagne);}
+  .badge-oos{position:absolute;top:14px;right:14px;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:#2a1a1a;color:#d47070;border:1px solid #4a2a2a;padding:4px 10px;}
+
+  /* loading / empty states */
+  .loading-dots{display:flex;gap:10px;justify-content:center;padding:80px 0;}
+  .loading-dots span{width:10px;height:10px;border-radius:50%;background:var(--champagne-dim);animation:blink 1.2s ease-in-out infinite;}
+  .loading-dots span:nth-child(2){animation-delay:.2s;}
+  .loading-dots span:nth-child(3){animation-delay:.4s;}
+  @keyframes blink{0%,80%,100%{opacity:.2;}40%{opacity:1;}}
+  .empty{text-align:center;padding:80px 0;color:var(--bone-dim);font-size:14px;}
+
+  /* ICON SVGs in product cards */
+  .prod-icon{width:64px;height:64px;opacity:.9;}
+
+  /* STRIP */
+  .strip{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:var(--panel);}
+  .strip .wrap{display:grid;grid-template-columns:repeat(3,1fr);}
+  .strip-item{padding:50px 0;text-align:center;border-left:1px solid var(--hairline);}
+  .strip-item:first-child{border-left:none;}
+  .strip-item b{display:block;font-family:'Sora';font-size:28px;font-weight:600;color:var(--champagne);margin-bottom:5px;}
+  .strip-item span{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bone-dim);}
+  @media(max-width:660px){.strip .wrap{grid-template-columns:1fr;} .strip-item{border-left:none;border-top:1px solid var(--hairline);} .strip-item:first-child{border-top:none;}}
+
+  /* INQUIRY FORM */
+  .form-wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+  @media(max-width:880px){.form-wrap{grid-template-columns:1fr;}}
+  .form-left h2{font-size:clamp(26px,3.5vw,38px);font-weight:600;margin-bottom:18px;}
+  .form-left p{color:var(--bone-dim);font-size:15px;line-height:1.8;margin-bottom:34px;}
+  .info-row{display:flex;gap:18px;padding:18px 0;border-top:1px solid var(--hairline);}
+  .info-row:last-child{border-bottom:1px solid var(--hairline);}
+  .info-row .lbl{width:110px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--champagne-dim);flex-shrink:0;padding-top:2px;}
+  .info-row .val{font-size:14px;color:var(--bone);line-height:1.6;}
+  .form-right{background:var(--panel);border:1px solid var(--hairline);padding:40px;}
+  .form-right h3{font-family:'Sora';font-size:18px;font-weight:600;margin-bottom:28px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--champagne-dim);margin-bottom:10px;}
+  .field input,.field textarea,.field select{width:100%;background:#0d0e10;border:1px solid var(--hairline);color:var(--bone);font-family:'Inter';font-size:14px;font-weight:300;padding:13px 16px;outline:none;transition:border-color .3s;}
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--champagne-dim);}
+  .field textarea{resize:vertical;min-height:90px;}
+  .field select option{background:#0d0e10;}
+  .form-msg{font-size:13px;margin-top:16px;padding:14px;display:none;}
+  .form-msg.success{background:#0e1e14;border:1px solid #2a5a38;color:#7ac99a;display:block;}
+  .form-msg.error{background:#1e0e0e;border:1px solid #5a2a2a;color:#d47070;display:block;}
+
+  /* VISIT */
+  .visit{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+  @media(max-width:900px){.visit{grid-template-columns:1fr;}}
+  .map-card{border:1px solid var(--hairline);height:360px;background:linear-gradient(var(--hairline) 1px,transparent 1px) 0 0/38px 38px,linear-gradient(90deg,var(--hairline) 1px,transparent 1px) 0 0/38px 38px,var(--panel);display:flex;align-items:center;justify-content:center;position:relative;}
+  .map-pin{width:52px;height:52px;border-radius:50%;background:var(--champagne);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(203,167,104,0.12),0 0 0 18px rgba(203,167,104,0.06);}
+
+  /* FOOTER */
+  footer{padding:72px 0 32px;border-top:1px solid var(--hairline);}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:44px;margin-bottom:56px;}
+  @media(max-width:740px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  .foot-grid h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--champagne-dim);margin-bottom:20px;}
+  .foot-grid ul{list-style:none;}
+  .foot-grid li{margin-bottom:12px;font-size:13px;color:var(--bone-dim);}
+  .foot-grid a:hover{color:var(--champagne);}
+  .foot-bottom{display:flex;justify-content:space-between;border-top:1px solid var(--hairline);padding-top:24px;font-size:12px;color:var(--bone-dim);flex-wrap:wrap;gap:10px;}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:32px;right:32px;background:var(--panel);border:1px solid var(--champagne-dim);color:var(--bone);padding:16px 24px;font-size:13px;z-index:999;transform:translateY(100px);opacity:0;transition:.4s;pointer-events:none;max-width:320px;}
+  .toast.show{transform:translateY(0);opacity:1;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">SANTOSH <span>STORE</span></div>
+    <div class="navlinks">
+      <a href="#products">Products</a>
+      <a href="#inquiry">Inquiry</a>
+      <a href="#visit">Visit Us</a>
+      <a href="admin/index.html">Admin</a>
+    </div>
+    <a class="nav-cta" href="#inquiry">Get Callback</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Mobiles · Gadgets · Accessories</span>
+      <h1>Technology,<br>worn with <em>intent</em>.</h1>
+      <p class="lead">A curated counter of phones, wearables, audio and the accessories that complete them. Walk in, try it in hand, walk out set up.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#products">Browse Products</a>
+        <a class="btn-ghost" href="#inquiry">Request Callback</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>300+</b><span>Products in store</span></div>
+        <div><b>12</b><span>Brands carried</span></div>
+        <div><b>7 yrs</b><span>Serving the city</span></div>
+      </div>
+    </div>
+    <div class="device-stage" aria-hidden="true">
+      <div class="ring r2"></div><div class="ring r1"></div>
+      <div class="phone"></div>
+      <div class="bud b1"></div><div class="bud b2"></div>
+      <div class="watch"></div>
+    </div>
+  </div>
+</header>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="tag">What's on the counter</span><h2>Our Products</h2></div>
+      <p>Every product is available in-store. Call ahead to reserve yours.</p>
+    </div>
+
+    <!-- Category filter tabs -->
+    <div class="cat-tabs" id="catTabs">
+      <div class="cat-tab active" data-cat="All">All</div>
+      <div class="cat-tab" data-cat="Smartphone">Smartphones</div>
+      <div class="cat-tab" data-cat="Wearable">Wearables</div>
+      <div class="cat-tab" data-cat="Audio">Audio</div>
+      <div class="cat-tab" data-cat="Accessory">Accessories</div>
+    </div>
+
+    <!-- Product cards injected here -->
+    <div class="prod-grid" id="prodGrid">
+      <div class="loading-dots" style="grid-column:1/-1;"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-item"><b>30-Day</b><span>Replacement window</span></div>
+    <div class="strip-item"><b>Genuine</b><span>Authorised stock only</span></div>
+    <div class="strip-item"><b>Free</b><span>Setup &amp; data transfer</span></div>
+  </div>
+</div>
+
+<!-- INQUIRY -->
+<section id="inquiry">
+  <div class="wrap form-wrap">
+    <div class="form-left">
+      <span class="tag">Talk to Santosh</span>
+      <h2>Ask about any product</h2>
+      <p>Submit your details and we'll call you back within the hour during store hours.</p>
+      <div class="info-row"><div class="lbl">Owner</div><div class="val">Santosh Pavate</div></div>
+      <div class="info-row"><div class="lbl">Phone</div><div class="val">+91 98765 43210</div></div>
+      <div class="info-row"><div class="lbl">Email</div><div class="val">santoshpavate2001@gmail.com</div></div>
+      <div class="info-row"><div class="lbl">Hours</div><div class="val">Mon–Sat 10am–9pm<br>Sun 11am–6pm</div></div>
+    </div>
+    <div class="form-right">
+      <h3>Send an inquiry</h3>
+      <form id="inquiryForm" onsubmit="submitInquiry(event)">
+        <div class="field">
+          <label>Your Name *</label>
+          <input type="text" name="name" placeholder="e.g. Rahul Kumar" required>
+        </div>
+        <div class="field">
+          <label>Phone Number *</label>
+          <input type="tel" name="phone" placeholder="+91 98765 43210" required>
+        </div>
+        <div class="field">
+          <label>Email (optional)</label>
+          <input type="email" name="email" placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label>Product you're interested in</label>
+          <input type="text" name="product" placeholder="e.g. iPhone 15, Galaxy Watch, AirPods...">
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea name="message" placeholder="Any specific questions or requirements..."></textarea>
+        </div>
+        <button class="btn-primary" type="submit" id="submitBtn" style="width:100%">Send Inquiry</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="wrap visit">
+    <div>
+      <span class="tag">Come see it in hand</span>
+      <h2 style="font-size:clamp(26px,3.5vw,36px);font-weight:600;margin-bottom:18px;">Visit the store</h2>
+      <p style="color:var(--bone-dim);font-size:15px;line-height:1.8;margin-bottom:32px;max-width:420px;">Specs only tell half the story. Hold it, test the camera, feel the weight — then decide.</p>
+      <div class="info-row"><div class="lbl">Address</div><div class="val">Shop 14, Gokul Road,<br>Hubballi, Karnataka 580030</div></div>
+      <div class="info-row"><div class="lbl">Hours</div><div class="val">Mon – Sat, 10:00 AM – 9:00 PM<br>Sunday, 11:00 AM – 6:00 PM</div></div>
+      <div class="info-row"><div class="lbl">Owner</div><div class="val">Santosh Pavate</div></div>
+      <div class="info-row"><div class="lbl">Phone</div><div class="val">+91 98765 43210</div></div>
+    </div>
+    <div class="map-card">
+      <div class="map-pin">
+        <svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M12 22s7-7.58 7-13a7 7 0 1 0-14 0c0 5.42 7 13 7 13z" stroke="#101113" stroke-width="1.6"/><circle cx="12" cy="9" r="2.4" stroke="#101113" stroke-width="1.6"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="margin-bottom:16px;">SANTOSH <span>STORE</span></div>
+        <p style="color:var(--bone-dim);font-size:13px;line-height:1.7;max-width:260px;">A neighbourhood counter for mobiles, gadgets and accessories — run by Santosh Pavate in Hubballi.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#products">Smartphones</a></li>
+          <li><a href="#products">Wearables</a></li>
+          <li><a href="#products">Audio</a></li>
+          <li><a href="#products">Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Store</h4>
+        <ul>
+          <li><a href="#visit">Location</a></li>
+          <li><a href="#visit">Hours</a></li>
+          <li><a href="#inquiry">Inquiry</a></li>
+          <li><a href="admin/index.html">Admin</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Santosh Pavate</li>
+          <li>+91 98765 43210</li>
+          <li>santoshpavate2001@gmail.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Santosh Store, Hubballi. All products sold in-store only.</span>
+      <span>Built for walk-in customers.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── ICON MAP ────────────────────────────────────────────────────────────────
+const ICONS = {
+  Smartphone: `<svg class="prod-icon" viewBox="0 0 48 48" fill="none"><rect x="13" y="3" width="22" height="42" rx="5" stroke="#cba768" stroke-width="1.3"/><line x1="13" y1="36" x2="35" y2="36" stroke="#cba768" stroke-width="1.3"/><circle cx="24" cy="40.5" r="1.4" fill="#cba768"/></svg>`,
+  Wearable:   `<svg class="prod-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="19" stroke="#cba768" stroke-width="1.3"/><rect x="19" y="9" width="10" height="7" rx="2.5" stroke="#cba768" stroke-width="1.3"/></svg>`,
+  Audio:      `<svg class="prod-icon" viewBox="0 0 48 48" fill="none"><path d="M10 26v-4a14 14 0 0 1 28 0v4" stroke="#cba768" stroke-width="1.3"/><rect x="8" y="26" width="8" height="12" rx="3" stroke="#cba768" stroke-width="1.3"/><rect x="32" y="26" width="8" height="12" rx="3" stroke="#cba768" stroke-width="1.3"/></svg>`,
+  Accessory:  `<svg class="prod-icon" viewBox="0 0 48 48" fill="none"><rect x="8" y="16" width="32" height="16" rx="3" stroke="#cba768" stroke-width="1.3"/><circle cx="24" cy="24" r="4" stroke="#cba768" stroke-width="1.3"/></svg>`,
+  default:    `<svg class="prod-icon" viewBox="0 0 48 48" fill="none"><rect x="10" y="10" width="28" height="28" rx="4" stroke="#cba768" stroke-width="1.3"/><circle cx="24" cy="24" r="6" stroke="#cba768" stroke-width="1.3"/></svg>`,
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let allProducts = [];
+let activeCategory = 'All';
+
+// ─── FETCH PRODUCTS ───────────────────────────────────────────────────────────
+async function loadProducts() {
+  const grid = document.getElementById('prodGrid');
+  grid.innerHTML = '<div class="loading-dots" style="grid-column:1/-1;"><span></span><span></span><span></span></div>';
+  try {
+    const res = await fetch('/.netlify/functions/products');
+    const data = await res.json();
+    allProducts = Array.isArray(data) ? data : [];
+    renderProducts();
+  } catch {
+    grid.innerHTML = '<p class="empty">Could not load products. Please try again.</p>';
+  }
+}
+
+function renderProducts() {
+  const grid = document.getElementById('prodGrid');
+  const filtered = activeCategory === 'All'
+    ? allProducts
+    : allProducts.filter(p => p.category === activeCategory);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<p class="empty" style="grid-column:1/-1;">No products in this category yet. Check back soon!</p>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="card">
+      <div class="card-art">
+        ${ICONS[p.category] || ICONS.default}
+        ${!p.inStock ? '<span class="badge-oos">Out of stock</span>' : ''}
+      </div>
+      <div class="card-body">
+        <span class="kicker">${p.category || 'Product'}</span>
+        <h3>${p.name}</h3>
+        <p class="desc">${p.description || ''}</p>
+        <div class="row">
+          <span class="price">₹${Number(p.price).toLocaleString('en-IN')}</span>
+          <span class="pill">${p.inStock ? 'In Store' : 'Call Us'}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── CATEGORY TABS ────────────────────────────────────────────────────────────
+document.getElementById('catTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.cat-tab');
+  if (!tab) return;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  activeCategory = tab.dataset.cat;
+  renderProducts();
+});
+
+// ─── INQUIRY FORM ─────────────────────────────────────────────────────────────
+async function submitInquiry(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('formMsg');
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form));
+
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  msg.className = 'form-msg';
+  msg.style.display = 'none';
+
+  try {
+    const res = await fetch('/.netlify/functions/inquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (res.ok) {
+      msg.textContent = '✓ Inquiry sent! Santosh will call you back shortly.';
+      msg.className = 'form-msg success';
+      form.reset();
+      showToast('Inquiry sent successfully!');
+    } else {
+      const err = await res.json();
+      msg.textContent = '✗ ' + (err.error || 'Something went wrong. Try again.');
+      msg.className = 'form-msg error';
+    }
+  } catch {
+    msg.textContent = '✗ Network error. Please check your connection.';
+    msg.className = 'form-msg error';
+  }
+
+  btn.textContent = 'Send Inquiry';
+  btn.disabled = false;
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(text) {
+  const t = document.getElementById('toast');
+  t.textContent = text;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+loadProducts();
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "santosh-store",
+  "version": "1.0.0",
+  "description": "Santosh Store - Mobiles, Gadgets & Accessories",
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  }
+}
